@@ -63,4 +63,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - [React Documentation](https://reactjs.org/docs/getting-started.html)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+<<<<<<< HEAD
 - [Create React App](https://github.com/facebook/create-react-app)
+=======
+- [Create React App](https://github.com/facebook/create-react-app)
+>>>>>>> ee2dcb5472ac638621a215a17d6f6874591e9839

@@ -35,7 +35,10 @@ const TodoList: React.FC<TodoListProps> = ({ todos, toggleTodo, deleteTodo, edit
   };
 
   return (
-    <ul className="space-y-4 mt-8">
+    <div className="mt-6">
+    <h2 className="text-xl font-semibold mb-3">Your Tasks</h2>
+    <div className="overflow-y-auto max-h-[300px] pr-2">
+    <ul className="space-y-4">
       {todos.map((todo) => (
         <li
           key={todo.id}
@@ -95,6 +98,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos, toggleTodo, deleteTodo, edit
         </li>
       ))}
     </ul>
+    </div></div>
   );
 };
 

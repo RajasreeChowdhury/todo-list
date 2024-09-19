@@ -25,19 +25,23 @@ const App: React.FC = () => {
       )
     );
   };
+
   const editTodo = (id: number) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, isEditing: !todo.isEditing } : todo
     ));
   };
+
   const updateTodoText = (id: number, newText: string) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, text: newText, isEditing: false } : todo
     ));
   };
+
   const deleteTodo = (id: number) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
+
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'All') return true;
@@ -46,44 +50,62 @@ const App: React.FC = () => {
     return todo.priority === filter;
   });
 
+  const filterOptions = [
+    { label: 'All', value: 'All' },
+    { label: 'Completed Tasks', value: 'Completed' },
+    { label: 'Incomplete Tasks', value: 'Incomplete' },
+    { label: 'High Priority', value: 'High' },
+    { label: 'Medium Priority', value: 'Medium' },
+    { label: 'Low Priority', value: 'Low' },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 flex flex-col items-center justify-center py-10 px-6">
-      <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-2xl">
-        <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-indigo-600">
-          To-Do List
-        </h1>
-
-        <TodoForm addTodo={addTodo} />
-
-        {/* Filters */}
-        <div className="mt-8 mb-6 flex flex-wrap justify-center gap-2">
-          <button onClick={() => setFilter('All')} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full shadow-md hover:bg-gray-200 transition duration-300 ease-in-out">
-            All
-          </button>
-          <button onClick={() => setFilter('Completed')} className="px-4 py-2 bg-green-100 text-green-700 rounded-full shadow-md hover:bg-green-200 transition duration-300 ease-in-out">
-            Completed
-          </button>
-          <button onClick={() => setFilter('Incomplete')} className="px-4 py-2 bg-red-100 text-red-700 rounded-full shadow-md hover:bg-red-200 transition duration-300 ease-in-out">
-            Incomplete
-          </button>
-          <button onClick={() => setFilter('High')} className="px-4 py-2 bg-red-100 text-red-700 rounded-full shadow-md hover:bg-red-200 transition duration-300 ease-in-out">
-            High
-          </button>
-          <button onClick={() => setFilter('Medium')} className="px-4 py-2 bg-yellow-100 text-yellow-700 rounded-full shadow-md hover:bg-yellow-200 transition duration-300 ease-in-out">
-            Medium
-          </button>
-          <button onClick={() => setFilter('Low')} className="px-4 py-2 bg-green-100 text-green-700 rounded-full shadow-md hover:bg-green-200 transition duration-300 ease-in-out">
-            Low
-          </button>
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 flex">
+      {/* Sidebar */}
+      <div className="w-64 bg-white shadow-lg">
+        <div className="p-4 bg-gradient-to-r from-blue-500 to-indigo-600">
+          <h2 className="text-xl font-bold text-white">Filters</h2>
         </div>
+        <nav className="mt-4">
+          {filterOptions.map((option) => (
+            <button
+              key={option.value}
+              onClick={() => setFilter(option.value as any)}
+              className={`w-full text-left px-4 py-2 transition-colors duration-200 ease-in-out
+                ${filter === option.value
+                  ? 'bg-blue-100 text-white-700 font-medium'
+                  : 'text-gray-600 hover:bg-gray-100'
+                }`}
+            >
+              {option.label}
+            </button>
+          ))}
+        </nav>
+      </div>
 
-        <TodoList 
-  todos={filteredTodos} 
-  toggleTodo={toggleTodo} 
-  deleteTodo={deleteTodo} 
-  editTodo={editTodo}
-  updateTodoText={updateTodoText}
-/>
+      {/* Main Content */}
+      <div className="flex-1 overflow-auto">
+        <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 py-6 px-4 sm:px-6 lg:px-8">
+              <h1 className="text-3xl font-extrabold text-white text-center">
+                To-Do List
+              </h1>
+            </div>
+            
+            <div className="p-4 sm:p-6 lg:p-8">
+              <TodoForm addTodo={addTodo} />
+
+              <TodoList 
+                todos={filteredTodos} 
+                toggleTodo={toggleTodo} 
+                deleteTodo={deleteTodo} 
+                editTodo={editTodo}
+                updateTodoText={updateTodoText}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

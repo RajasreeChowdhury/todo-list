@@ -42,7 +42,6 @@ const App: React.FC = () => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'All') return true;
     if (filter === 'Completed') return todo.completed;
@@ -50,63 +49,59 @@ const App: React.FC = () => {
     return todo.priority === filter;
   });
 
-  const filterOptions = [
-    { label: 'All', value: 'All' },
-    { label: 'Completed Tasks', value: 'Completed' },
-    { label: 'Incomplete Tasks', value: 'Incomplete' },
-    { label: 'High Priority', value: 'High' },
-    { label: 'Medium Priority', value: 'Medium' },
-    { label: 'Low Priority', value: 'Low' },
-  ];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 flex">
-      {/* Sidebar */}
-      <div className="w-64 bg-white shadow-lg">
-        <div className="p-4 bg-gradient-to-r from-blue-500 to-indigo-600">
-          <h2 className="text-xl font-bold text-white">Filters</h2>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+      <header className="bg-gradient-to-r from-blue-500 to-indigo-500 shadow-lg py-6 px-12 w-full text-white text-center font-bold text-3xl">
+       Todo List
+      </header>
+      <main className="max-w-4xl w-full mt-10">
+        <TodoForm addTodo={addTodo} />
+        <div className="my-6 flex justify-center space-x-4">
+          <button
+            onClick={() => setFilter('All')}
+            className={`py-2 px-6 rounded-lg ${filter === 'All' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600'} transition-all`}
+          >
+            All
+          </button>
+          <button
+            onClick={() => setFilter('Completed')}
+            className={`py-2 px-6 rounded-lg ${filter === 'Completed' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600'} transition-all`}
+          >
+            Completed
+          </button>
+          <button
+            onClick={() => setFilter('Incomplete')}
+            className={`py-2 px-6 rounded-lg ${filter === 'Incomplete' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600'} transition-all`}
+          >
+            Incomplete
+          </button>
+          <button
+            onClick={() => setFilter('High')}
+            className={`py-2 px-6 rounded-lg ${filter === 'High' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600'} transition-all`}
+          >
+            High
+          </button>
+          <button
+            onClick={() => setFilter('Medium')}
+            className={`py-2 px-6 rounded-lg ${filter === 'Medium' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600'} transition-all`}
+          >
+            Medium
+          </button>
+          <button
+            onClick={() => setFilter('Low')}
+            className={`py-2 px-6 rounded-lg ${filter === 'Low' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600'} transition-all`}
+          >
+            Low
+          </button>
         </div>
-        <nav className="mt-4">
-          {filterOptions.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => setFilter(option.value as any)}
-              className={`w-full text-left px-4 py-2 transition-colors duration-200 ease-in-out
-                ${filter === option.value
-                  ? 'bg-blue-100 text-white-700 font-medium'
-                  : 'text-gray-600 hover:bg-gray-100'
-                }`}
-            >
-              {option.label}
-            </button>
-          ))}
-        </nav>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto">
-        <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 py-6 px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-extrabold text-white text-center">
-                To-Do List
-              </h1>
-            </div>
-            
-            <div className="p-4 sm:p-6 lg:p-8">
-              <TodoForm addTodo={addTodo} />
-
-              <TodoList 
-                todos={filteredTodos} 
-                toggleTodo={toggleTodo} 
-                deleteTodo={deleteTodo} 
-                editTodo={editTodo}
-                updateTodoText={updateTodoText}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+        <TodoList
+          todos={filteredTodos}
+          toggleTodo={toggleTodo}
+          deleteTodo={deleteTodo}
+          editTodo={editTodo}
+          updateTodoText={updateTodoText}
+        />
+      </main>
     </div>
   );
 };

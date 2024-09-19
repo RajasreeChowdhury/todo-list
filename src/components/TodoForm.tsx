@@ -24,13 +24,13 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Add a new task"
-        className="flex-grow shadow-sm border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
+        className="flex-grow shadow-lg border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all"
       />
       <select
         id="priority"
         value={priority}
         onChange={(e) => setPriority(e.target.value as 'High' | 'Medium' | 'Low')}
-        className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-300 w-32"
+        className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all w-40"
       >
         <option value="High">High</option>
         <option value="Medium">Medium</option>
@@ -38,9 +38,9 @@ const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
       </select>
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md shadow-md transition"
+        className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition-all hover:shadow-2xl"
       >
-        Add
+        Add Task
       </button>
     </form>
   );
